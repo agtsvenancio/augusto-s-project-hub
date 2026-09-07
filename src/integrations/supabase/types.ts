@@ -14,16 +14,459 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clients: {
+        Row: {
+          contact_name: string | null
+          created_at: string
+          document: string | null
+          email: string | null
+          id: string
+          is_demo: boolean
+          name: string
+          notes: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string
+          whatsapp: string | null
+        }
+        Insert: {
+          contact_name?: string | null
+          created_at?: string
+          document?: string | null
+          email?: string | null
+          id?: string
+          is_demo?: boolean
+          name: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+          whatsapp?: string | null
+        }
+        Update: {
+          contact_name?: string | null
+          created_at?: string
+          document?: string | null
+          email?: string | null
+          id?: string
+          is_demo?: boolean
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      maintenance: {
+        Row: {
+          amount: number
+          client_id: string | null
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          financial_status: Database["public"]["Enums"]["financial_status"]
+          id: string
+          is_demo: boolean
+          notes: string | null
+          project_id: string | null
+          requested_at: string | null
+          service_id: string | null
+          status: Database["public"]["Enums"]["maintenance_status"]
+          title: string
+          type: Database["public"]["Enums"]["maintenance_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          client_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          financial_status?: Database["public"]["Enums"]["financial_status"]
+          id?: string
+          is_demo?: boolean
+          notes?: string | null
+          project_id?: string | null
+          requested_at?: string | null
+          service_id?: string | null
+          status?: Database["public"]["Enums"]["maintenance_status"]
+          title: string
+          type?: Database["public"]["Enums"]["maintenance_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          financial_status?: Database["public"]["Enums"]["financial_status"]
+          id?: string
+          is_demo?: boolean
+          notes?: string | null
+          project_id?: string | null
+          requested_at?: string | null
+          service_id?: string | null
+          status?: Database["public"]["Enums"]["maintenance_status"]
+          title?: string
+          type?: Database["public"]["Enums"]["maintenance_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          is_demo: boolean
+          maintenance_id: string | null
+          method: Database["public"]["Enums"]["payment_method"]
+          notes: string | null
+          paid_at: string
+          project_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          is_demo?: boolean
+          maintenance_id?: string | null
+          method?: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
+          paid_at?: string
+          project_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          is_demo?: boolean
+          maintenance_id?: string | null
+          method?: Database["public"]["Enums"]["payment_method"]
+          notes?: string | null
+          paid_at?: string
+          project_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_maintenance_id_fkey"
+            columns: ["maintenance_id"]
+            isOneToOne: false
+            referencedRelation: "maintenance"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      project_history: {
+        Row: {
+          created_at: string
+          detail: string | null
+          event: string
+          id: string
+          maintenance_id: string | null
+          project_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          detail?: string | null
+          event: string
+          id?: string
+          maintenance_id?: string | null
+          project_id?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          detail?: string | null
+          event?: string
+          id?: string
+          maintenance_id?: string | null
+          project_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_history_maintenance_id_fkey"
+            columns: ["maintenance_id"]
+            isOneToOne: false
+            referencedRelation: "maintenance"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_history_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          amount: number
+          client_id: string | null
+          contracted_at: string | null
+          created_at: string
+          delivered_at: string | null
+          description: string | null
+          domain: string | null
+          due_date: string | null
+          financial_status: Database["public"]["Enums"]["financial_status"]
+          hosting: string | null
+          id: string
+          is_demo: boolean
+          name: string
+          notes: string | null
+          preview_url: string | null
+          production_status: Database["public"]["Enums"]["production_status"]
+          production_url: string | null
+          repository_url: string | null
+          service_id: string | null
+          status: Database["public"]["Enums"]["project_status"]
+          type: Database["public"]["Enums"]["project_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          client_id?: string | null
+          contracted_at?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          description?: string | null
+          domain?: string | null
+          due_date?: string | null
+          financial_status?: Database["public"]["Enums"]["financial_status"]
+          hosting?: string | null
+          id?: string
+          is_demo?: boolean
+          name: string
+          notes?: string | null
+          preview_url?: string | null
+          production_status?: Database["public"]["Enums"]["production_status"]
+          production_url?: string | null
+          repository_url?: string | null
+          service_id?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          type?: Database["public"]["Enums"]["project_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string | null
+          contracted_at?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          description?: string | null
+          domain?: string | null
+          due_date?: string | null
+          financial_status?: Database["public"]["Enums"]["financial_status"]
+          hosting?: string | null
+          id?: string
+          is_demo?: boolean
+          name?: string
+          notes?: string | null
+          preview_url?: string | null
+          production_status?: Database["public"]["Enums"]["production_status"]
+          production_url?: string | null
+          repository_url?: string | null
+          service_id?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          type?: Database["public"]["Enums"]["project_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "projects_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          active: boolean
+          category: string | null
+          created_at: string
+          default_price: number
+          description: string | null
+          id: string
+          is_demo: boolean
+          name: string
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          default_price?: number
+          description?: string | null
+          id?: string
+          is_demo?: boolean
+          name: string
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          active?: boolean
+          category?: string | null
+          created_at?: string
+          default_price?: number
+          description?: string | null
+          id?: string
+          is_demo?: boolean
+          name?: string
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      clear_demo_data: { Args: never; Returns: undefined }
+      seed_demo_data: { Args: never; Returns: undefined }
     }
     Enums: {
-      [_ in never]: never
+      financial_status:
+        | "nao_faturado"
+        | "aguardando_pagamento"
+        | "parcialmente_pago"
+        | "pago"
+        | "atrasado"
+      maintenance_status:
+        | "solicitada"
+        | "aguardando_informacoes"
+        | "em_andamento"
+        | "aguardando_aprovacao"
+        | "concluida"
+        | "cancelada"
+      maintenance_type:
+        | "correcao_bug"
+        | "alteracao_conteudo"
+        | "alteracao_visual"
+        | "alteracao_layout"
+        | "integracao"
+        | "configuracao_dominio"
+        | "hospedagem"
+        | "seo_tecnico"
+        | "performance"
+        | "atualizacao"
+        | "outro"
+      payment_method:
+        | "pix"
+        | "transferencia"
+        | "dinheiro"
+        | "cartao"
+        | "boleto"
+        | "outro"
+      production_status:
+        | "nao_iniciado"
+        | "desenvolvimento"
+        | "preview"
+        | "em_producao"
+      project_status:
+        | "orcamento"
+        | "aguardando_aprovacao"
+        | "aguardando_informacoes"
+        | "em_desenvolvimento"
+        | "em_revisao"
+        | "ajustes"
+        | "pronto"
+        | "publicado"
+        | "concluido"
+        | "cancelado"
+      project_type:
+        | "landing_page"
+        | "site_institucional"
+        | "ecommerce"
+        | "pagina_campanha"
+        | "sistema_web"
+        | "manutencao"
+        | "outro"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +593,70 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      financial_status: [
+        "nao_faturado",
+        "aguardando_pagamento",
+        "parcialmente_pago",
+        "pago",
+        "atrasado",
+      ],
+      maintenance_status: [
+        "solicitada",
+        "aguardando_informacoes",
+        "em_andamento",
+        "aguardando_aprovacao",
+        "concluida",
+        "cancelada",
+      ],
+      maintenance_type: [
+        "correcao_bug",
+        "alteracao_conteudo",
+        "alteracao_visual",
+        "alteracao_layout",
+        "integracao",
+        "configuracao_dominio",
+        "hospedagem",
+        "seo_tecnico",
+        "performance",
+        "atualizacao",
+        "outro",
+      ],
+      payment_method: [
+        "pix",
+        "transferencia",
+        "dinheiro",
+        "cartao",
+        "boleto",
+        "outro",
+      ],
+      production_status: [
+        "nao_iniciado",
+        "desenvolvimento",
+        "preview",
+        "em_producao",
+      ],
+      project_status: [
+        "orcamento",
+        "aguardando_aprovacao",
+        "aguardando_informacoes",
+        "em_desenvolvimento",
+        "em_revisao",
+        "ajustes",
+        "pronto",
+        "publicado",
+        "concluido",
+        "cancelado",
+      ],
+      project_type: [
+        "landing_page",
+        "site_institucional",
+        "ecommerce",
+        "pagina_campanha",
+        "sistema_web",
+        "manutencao",
+        "outro",
+      ],
+    },
   },
 } as const
