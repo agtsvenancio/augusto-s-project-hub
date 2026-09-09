@@ -62,7 +62,14 @@ export function Kpi({
   tone?: "gold" | "mint" | "red" | "orange" | "blue";
   hint?: string;
 }) {
-  const toneClass = tone ? `text-${tone}` : "text-cream";
+  const tones = {
+    gold: "text-gold",
+    mint: "text-mint",
+    red: "text-red",
+    orange: "text-orange",
+    blue: "text-blue",
+  } as const;
+  const toneClass = tone ? tones[tone] : "text-cream";
   return (
     <div className="bg-panel px-4 py-3.5">
       <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint">{label}</p>
