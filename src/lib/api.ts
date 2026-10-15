@@ -80,7 +80,7 @@ function useInvalidate(table: TableName) {
 export function useUpsert<T extends Record<string, unknown>>(table: TableName) {
   const invalidate = useInvalidate(table);
   return useMutation({
-    mutationFn: async ({ id, values }: { id?: string; values: T }) => {
+    mutationFn: async ({ id, values }: { id?: string | undefined; values: T }) => {
       const query = id
         ? supabase.from(table).update(values as never).eq("id", id)
         : supabase.from(table).insert(values as never);
