@@ -41,7 +41,7 @@ export function monthKey(value: string | null | undefined): string | null {
 export function monthLabel(key: string): string {
   const [year, month] = key.split("-");
   const names = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-  return `${names[Number(month) - 1]}/${year.slice(2)}`;
+  return `${names[Number(month) - 1]}/${(year ?? "").slice(2)}`;
 }
 
 export function lastMonths(count: number): string[] {
