@@ -848,9 +848,9 @@ export function PaymentDialog({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  projectId?: string;
-  maintenanceId?: string;
-  suggestedAmount?: number;
+  projectId?: string | undefined;
+  maintenanceId?: string | undefined;
+  suggestedAmount?: number | undefined;
 }) {
   const upsert = useUpsert("payments");
   const [form, setForm] = useState({ amount: "", paid_at: todayISO(), method: "pix", notes: "" });
